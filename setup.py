@@ -11,7 +11,7 @@ setuptools.setup(
     description="Utilities to interface with iMotions from oTree",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/lochiego/otree-imotions",
+    url="https://github.com/lochiego/iomotions",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
