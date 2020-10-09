@@ -28,7 +28,7 @@ As usual it's recommended that you use a virtual environment for your dependenci
 
 #### oTree Integration API
 
-##### class ScenePage
+##### ScenePage
 `ScenePage` makes it simple to send start and end scene markers to oTree. Subclass this type instead of `Page` and the
 scene markers will use the class name as the scene description. When the page loads a start scene marker is sent to 
 iMotions, and following a successful `Post` it will send the end scene marker, prior to progressing to the next page.
