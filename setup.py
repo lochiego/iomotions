@@ -5,12 +5,13 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="iomotions",
-    version="0.0.1",
+    version="0.0.2",
     author="Eric Gonzalez",
     author_email="erigonz89@gmail.com",
     description="Utilities to interface with iMotions from oTree",
     long_description=long_description,
     long_description_content_type="text/markdown",
+    license='MIT License',
     url="https://github.com/lochiego/iomotions",
     packages=setuptools.find_packages(),
     classifiers=[
