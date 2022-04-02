@@ -1,2 +1,2 @@
-otree>=2.1
+otree>=2.1,<5.0
 Django~=1.11
