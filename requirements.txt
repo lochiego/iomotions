@@ -1,2 +1,1 @@
-otree>=2.1,<5.0
-Django~=1.11
+otree>=5.0

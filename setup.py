@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="iomotions",
-    version="0.0.2",
+    version="0.0.3",
     author="Eric Gonzalez",
     author_email="erigonz89@gmail.com",
     description="Utilities to interface with iMotions from oTree",

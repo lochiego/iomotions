@@ -1,14 +1,14 @@
 # Don't change anything in this file.
 import otree.views
-from django.http import HttpRequest
 from otree.api import models
+from starlette import requests
 
 
 class Page(otree.views.Page):
     subsession: models.BaseSubsession
     group: models.BaseGroup
     player: models.BasePlayer
-    request: HttpRequest
+    request: requests.Request
 
 
 class WaitPage(Page):

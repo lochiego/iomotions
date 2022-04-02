@@ -1,5 +1,4 @@
-from ._builtin import Page
-from django.http import HttpRequest
+from otree.api import Page
 from ..imotions import send_event
 
 
@@ -48,4 +47,4 @@ class ScenePage(Page):
 
     def _send_imotions(self, message):
         """Forwards a message to the iMotions instance running on the subject's computer."""
-        send_event(self.request.META.get('REMOTE_ADDR'), message)
+        send_event(self.request.client[0], message)
