@@ -3,13 +3,10 @@
 This project provides useful utilities for interfacing with [iMotions](https://imotions.com/) software from third party
 applications.
 
-Initial support is intended for [oTree](http://otree.org/), a behavioral experiment software. Its chief goal is to 
-enhance experiments where subjects are tracked using iMotions, making it simple to mark events surrounding page 
-interactions.
-
 Over time this repository may grow to provide more hooks to iMotions APIs.
 
 ## Installation
+
 To use this module add the following line to your `requirements.txt` file:
 
 ```requirements.txt
@@ -22,13 +19,12 @@ Then install your requirements as usual.
 pip3 install -r requirements.txt
 ```
 
-As usual it's recommended that you use a virtual environment for your dependencies.
-
 ### Usage
 
 #### oTree Integration API
 
 ##### ScenePage
+
 `ScenePage` makes it simple to send start and end scene markers to oTree. Subclass this type instead of `Page` and the
 scene markers will use the class name as the scene description. When the page loads a start scene marker is sent to 
 iMotions, and following a successful `Post` it will send the end scene marker, prior to progressing to the next page.
