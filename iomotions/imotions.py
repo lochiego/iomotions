@@ -20,3 +20,10 @@ def send_event(ip, message):
         print(f'iMotions not listening on {ip}')
     except socket.error:
         print(f'Problem sending event to {ip}')
+
+def start_scene_recording(ip, scene_name, scene_description = ''):
+    send_event(ip, f'M;2;;;{scene_name};{scene_description};S;V\r\n')
+
+def end_scene_recording(ip, scene_name):
+    send_event(ip, f'M;2;;;{scene_name};;E;\r\n')
+    pass
