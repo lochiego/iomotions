@@ -1,16 +1,14 @@
 # iomotions
 
-This project provides useful utilities for interfacing with [iMotions](https://imotions.com/) software from third party
+This (unofficial) project provides useful utilities for interfacing with [iMotions](https://imotions.com/) software from third party
 applications.
-
-Over time this repository may grow to provide more hooks to iMotions APIs.
 
 ## Installation
 
 To use this module add the following line to your `requirements.txt` file:
 
 ```requirements.txt
-iomotions>=0.0.1
+iomotions>=0.1.0
 ```
 
 Then install your requirements as usual.
@@ -19,36 +17,58 @@ Then install your requirements as usual.
 pip3 install -r requirements.txt
 ```
 
-### Usage
+## iMotions Setup
 
-#### oTree Integration API
+**IMPORTANT:** In order for the following functions to work you must ensure that in *Global Preferences > API > Event Receiving* both *Enable event reception* and *Use TCP* are checked.
 
-##### ScenePage
+## API
 
-`ScenePage` makes it simple to send start and end scene markers to oTree. Subclass this type instead of `Page` and the
-scene markers will use the class name as the scene description. When the page loads a start scene marker is sent to 
-iMotions, and following a successful `Post` it will send the end scene marker, prior to progressing to the next page.
+### `iomotions` module
+
+#### `start_scene_recording(ip_address, scene_name, scene_description = '')`
+
+Instruct the *iMotions* instance running at the designated IP address to start recording a scene with the prescribed name and optional description.
+
+#### `end_scene_recording(ip_address, scene_name)`
+
+Instruct the *iMotions* instance running at the designated IP address to end its recording of the named scene.
+
+#### `class EventEmitter`
+
+Helper class that stores connection information and exposes a simpler messaging API. This class is not well supported but can be used to send messages over UDP in place of the default TCP behavior of the above APIs.
+
+### `iomotions.otree` module
+
+`iomotions` includes API for integrating with [oTree](http://www.otree.org/) out of the box. The provided `iomotions.otree.pages.ScenePage` class extends oTree's [Page](https://otree.readthedocs.io/en/latest/pages.html) to record the page as a Scene in *iMotions*.
+
+#### `class ScenePage(otree.api.Page)`
+
+The `ScenePage` class should be subclassed in place of oTree's `Page` when you want *iMotions* to record the page. By using a `ScenePage` *iMotions* records a scene starting when the page begins loading and ending when the page transitions. The scene name is derived from the class name by default the current round number.
+
+##### `scene_name`
+
+If you would like to provide an alternative scene identifier than the class name, simply override the `scene_name` property with the string you would like to use instead.
+
+##### `scene_description`
+
+When provided, the description will be included with the scene marker in *iMotions*.
+
+##### Full Example
 
 ```python
+# <app-name>/__init__.py
 from iomotions.otree.pages import ScenePage
 ...
 
 class QuizPage(ScenePage):
-    pass
-```
-
-If you would like to provide an alternative scene identifier than the class name, simply override the `scene_name` 
-property with the string you would like to use instead.
-
-```python
-from iomotions.otree.pages import ScenePage
-...
-
-class QuizPage(ScenePage):
+    
+    # optional, would default to QuizPage<round_number>
     scene_name = 'Question'
+    
+    # optional
+    scene_description = 'General knowledge question'
 ```
 
-_Note_: The current round number will also be appended to the 
-scene name to account for pages that appear in multi-round apps.
+**Note:** The current round number will also be appended to the scene name to account for pages that appear in multi-round apps.
 
-You can similarly specify a `scene_description` property to add the _Description_ property to the iMotions start scene marker.
+**Note:** For simplicity to the user the `ScenePage` class extends private functions from `Page`. The primary motivation for this is to avoid unexpected breakage from overriding `before_next_page` without calling `ScenePage`'s implementation. Since the overridden methods are private it's possible that a future version of oTree will result in changes that break this API.

@@ -15,9 +15,9 @@ def send_event(ip, message):
         sock.connect((ip, EVENT_RECEIVING_PORT))
         sock.send(bytes(message, 'utf-8'))
     except ConnectionRefusedError:
-        print(f"Could not connect to iMotions running at {ip} port {EVENT_RECEIVING_PORT}")
+        print(f"Couldn't connect to iMotions. Is it running on {ip} port {EVENT_RECEIVING_PORT} with 'Enable event receiving' and 'Use TCP' enabled?")
     except socket.timeout:
-        print(f'iMotions not listening on {ip}')
+        print(f'Timed out trying to reach iMotions on {ip}')
     except socket.error:
         print(f'Problem sending event to {ip}')
 
